@@ -25,21 +25,20 @@ def is_valid_message(message):
 
 
 def validate_command(command):
-    split_command = command.split()
     if logged_in.is_set():
         # While logged in, a user should be able to
         #   send <"all"/<user>> <message>
         #   who
         #   logout
         if command.startswith("send all "):  # send all <message>
-            if not len(split_command) >= 3:
+            if not len(command.split()) >= 3:
                 return False
-            _, _, *message = split_command
+            _, _, message = command.split(' ', 2)
             return is_valid_message(message)
         elif command.startswith("send "):  # send <user> <message>
-            if not len(split_command) >= 3:
+            if not len(command.split()) >= 3:
                 return False
-            _, user, *message = split_command
+            _, user, message = command.split(' ', 2)
             return is_valid_username(user) and is_valid_message(message)
         elif command == "who" or command == "logout":
             return True
@@ -50,14 +49,14 @@ def validate_command(command):
         #  login <user> <password>
         #  newuser <user> <password>
         if command.startswith("login "):
-            if not len(split_command) == 3:
+            if not len(command.split()) == 3:
                 return False
-            _, user, password = split_command
+            _, user, password = command.split(' ', 2)
             return is_valid_username(user) and is_valid_password(password)
         elif command.startswith("newuser "):
-            if not len(split_command) == 3:
+            if not len(command.split()) == 3:
                 return False
-            _, user, password = split_command
+            _, user, password = command.split(' ', 2)
             return is_valid_username(user) and is_valid_password(password)
         return False
 

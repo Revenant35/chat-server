@@ -25,7 +25,7 @@ def validate_command(command, logged_in):
         if command.startswith("send "):  # send <message>
             if not len(command.split()) >= 2:
                 return False
-            _, *message = command.split(" ", 1)
+            _, message = command.split(" ", 1)
             return is_valid_message(message)
         elif command == "logout":  # logout
             return True

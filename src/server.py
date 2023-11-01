@@ -128,7 +128,7 @@ def main():
         except socket.timeout:
             continue
 
-        print(f"Connection made from: {client_socket.getpeername()}")
+        # print(f"Connection made from: {client_socket.getpeername()}")
 
         client_socket.send("accepted".encode("utf-8"))
 
